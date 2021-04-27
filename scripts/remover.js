@@ -3,7 +3,7 @@
         currentUrl: {}, 
         constants: {
             queries: {
-                result_links: '.g > div > div > a[href*="www.leifiphysik.de/"]', 
+                result_links: '.g div > a[href*="www.leifiphysik.de"]', 
                 link_parent_node: '#rso div.g', 
                 main_google_node: 'main'
             }, 
@@ -14,7 +14,7 @@
             }, 
             console: {
                 needs_to_be_updated: 'LeifiRemover selectors need to be updated!', 
-                removed: 'Leifi links were removed from this search.'
+                removed: 'Leifiphysik links were removed from this search.'
             }, 
             observerConfig: { childList: true, subtree: true }
         }, 
@@ -33,13 +33,18 @@
                 this.createResultsObserver(mainGoogleNode);
             });
         }, 
-        getAllW3Links: function() {
+        getAllLeifiLinks: function() {
             return document.querySelectorAll(this.constants.queries.result_links);
         }, 
         remove: function(info) {
             var tId = info.tId;
             var wId = info.wId;
-            var links = this.getAllW3Links();
+            // ignoring dropdown items and huge card on the right
+            var links = Array.from(this.getAllLeifiLinks()).filter(function (link) {
+                var isAccordionItem = Boolean(link.closest('g-accordion-expander'))
+                var isHugeCardOnTheRight = Boolean(link.closest('#wp-tabs-container'))
+                return !isAccordionItem && !isHugeCardOnTheRight
+            });
             var count = links.length;
             if(!count) {
                 if(!this.isSameUrl(window.location.href, info)) {

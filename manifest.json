@@ -2,8 +2,8 @@
     "author": "Franzl",
     "manifest_version": 2,
     "name": "Remove Leifi-Physik",
-    "description": "Remove Leifi-Physik results in google searches",
-    "version": "3.0.22",
+    "description": "Remove Leifi-Physik results from google searches",
+    "version": "1.0.1",
     "background": {
         "scripts": [ "scripts/bg.js" ], 
         "persistent": false
